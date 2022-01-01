@@ -1,0 +1,88 @@
+@import "bulma";
+@import "functions";
+
+.image {
+  border-radius: 50%;
+  img {
+    border-radius: 50%;
+  }
+}
+
+.notification:not(:last-child) {
+  margin-bottom: 0;
+}
+
+.textarea {
+  height: 250px;
+  font-family: Monaco, san-serif;
+  font-size: .9rem;
+  padding: 1rem;
+}
+
+.discussion-title {
+  margin-bottom: 0;
+}
+
+.doubt-answer{
+  background: linear-gradient(180deg, rgba(255,194,161,1) 0%, rgba(245,245,245,1) 100%);
+}
+
+.dashboard-column{
+  background-color: #eee;
+  height: 10rem;
+  margin: 1rem;
+  text-align: center;
+  border: 1px solid orange;
+}
+
+.doubt-list-element{
+  border-radius: 10px;
+}
+
+
+.btn-purple{
+  background-image: linear-gradient(to right top, #e9442b, #ea4b2a, #ea512a, #eb572a, #eb5d2a, #ec6429, #ec6b28, #ed7227, #ee7b25, #ee8424, #ee8d24, #ee9625);  color: white;
+  padding: 20px;
+  border: none;
+  border-radius: 10px;
+  color: white;
+}
+
+.btn-orange {
+  color: white;
+  padding: 15px;
+  border: none;
+  border-radius: 10px;
+  background-image: linear-gradient(to right top, #e9442b, #ea4b2a, #ea512a, #eb572a, #eb5d2a, #ec6429, #ec6b28, #ed7227, #ee7b25, #ee8424, #ee8d24, #ee9625);  color: white;
+}
+
+.doubt-card{
+  border-radius: 10px;
+  border: 1px solid #ccc;
+}
+
+.comment-card{
+  box-shadow: none;
+}
+
+.answer-input{
+  min-width: 100%;
+  min-height: 200px;
+  padding: 10px;
+}
+
+span.hint{
+  color:#ccc;
+  font-size: 0.8rem;
+}
+
+span.error{
+  color: red;
+  font-size: 0.8rem;
+
+}
+
+.error_notification{
+  color: #e9442b;
+  margin-bottom: 5px;
+}

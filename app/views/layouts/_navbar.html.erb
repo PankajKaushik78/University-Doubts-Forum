@@ -1,0 +1,116 @@
+<nav class="navbar is-light has-background-light " role="navigation" aria-label="main navigation">
+    <div class="navbar-brand pa20">
+        <%= link_to root_path, class:"navbar-item" do %>
+
+
+        <h1 class="title is-5">
+            <span style="color: #ee712a">University Doubts Forum</span>
+            <%if current_user %>
+            <% if current_user.has_role? "admin" %>
+            | Admin
+            <% elsif current_user.assistant? %>
+            | Teaching assistant
+            <% elsif current_user.student? %>
+            | Student
+            <% elsif current_user.teacher?  %>
+            | Teacher
+            <% end %>
+            <% end %>
+        </h1>
+        <% end  %>
+        <a role="button" class="navbar-burger" data-target="navbar" aria-label="menu" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+        </a>
+    </div>
+
+    <div id="navbar" class="navbar-menu">
+        <div class="navbar-end">
+            <div class="navbar-item">
+                <div class="field is-grouped">
+                    <%= link_to 'Home', root_path , class:"button is-rounded" %>
+                </div>
+            </div>
+            <% if user_signed_in? %>
+            <% if current_user.student? || current_user.assistant? %>
+
+            <div class="navbar-item">
+                <div class="field is-grouped">
+                    <%= link_to 'Raise Doubt', new_doubt_path , class:"button btn-purple" %>
+                </div>
+            </div>
+            <% end%>
+            <% if current_user.teacher? %>
+            <div class="navbar-item">
+                <div class="field is-grouped">
+                    <%= link_to 'Reports', dashboard_path , class:"button btn-purple" %>
+                </div>
+            </div>
+            <% end %>
+            <% if current_user.teacher? || current_user.assistant? %>
+            <div class="navbar-item">
+                <div class="field is-grouped">
+                    <%= link_to 'Solve Doubt', doubts_path , class:"button btn-purple" %>
+                </div>
+            </div>
+            <% end %>
+            <div class="navbar-item has-dropdown is-hoverable">
+                <%= link_to 'Account', edit_user_registration_path, class: "navbar-link" %>
+                <div class="navbar-dropdown is-right">
+                    <%= link_to current_user.username, edit_user_registration_path, class:"navbar-item" %>
+                    <%= link_to "Log Out", destroy_user_session_path, method: :delete, class:"navbar-item" %>
+                </div>
+            </div>
+            <% else %>
+            <div class="navbar-item">
+                <div class="field is-grouped">
+
+                    <p class="control">
+                        <%= link_to 'Raise Doubt', new_doubt_path, class:"button btn-purple" %>
+                    </p>
+
+                    <p class="control">
+                        <%= link_to "Sign In", new_user_session_path, class: "button is-rounded"%>
+                    </p>
+
+                    <p class="control">
+                        <%= link_to "Sign up", new_user_registration_path, class: "button is-rounded" %>
+                    </p>
+                </div>
+            </div>
+            <% end %>
+
+        </div>
+    </div>
+</nav>
+
+
+<!-- Js for navabr toggle -->
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+
+        // Get all "navbar-burger" elements
+        const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+
+        // Check if there are any navbar burgers
+        if ($navbarBurgers.length > 0) {
+
+            // Add a click event on each of them
+            $navbarBurgers.forEach(el => {
+                el.addEventListener('click', () => {
+
+                    // Get the target from the "data-target" attribute
+                    const target = el.dataset.target;
+                    const $target = document.getElementById(target);
+
+                    // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+                    el.classList.toggle('is-active');
+                    $target.classList.toggle('is-active');
+
+                });
+            });
+        }
+
+    });
+</script>

@@ -1,0 +1,55 @@
+<!-- ---->
+
+<div class="columns">
+    <div class="column is-7 has-background-light pa30 doubt-card">
+
+        <h1 class="title is-2 has-text-grey discussion-title"><%= @doubt.title %></h1>
+        <h3 class=" subtitle is-5 has-text-grey-lighter">by <%= @doubt.user.username %>
+            <% if @doubt.category %>
+            in
+            <%= link_to @doubt.category.category, @doubt.category %>
+            <% end %>
+        </h3>
+        <div class=" level">
+            <div class="level-left"></div>
+            <div class="level-right">
+                <% if doubt_author(@doubt) || has_role?(:admin) %>
+                <div class="buttons">
+                    <%= link_to 'Edit doubt', edit_doubt_path(@doubt), class:'button is-primary is-outlined'%>
+                    <%= button_to 'Delete', doubt_path(@doubt), method: :delete, class:'button is-danger is-light' %>
+                </div>
+                <% end %>
+            </div>
+        </div>
+        <hr style="background-color: #eee;" />
+        <div class="content"><%= markdown(@doubt.description) %></div>
+        <hr style="background-color: #eee;" />
+
+        <h2 class="subtitle is-5 has-text-grey"><%= @doubt.comments.count %> comments</h2>
+
+        <div id="discussion-replies">
+            <%= render @doubt.comments %>
+        </div>
+
+
+        <h3 class="subtitle is-size-6 has-text-grey mt20">Leave a comment</h3>
+        <% if user_signed_in? %>
+        <%= render 'comments/form' %>
+        <% else %>
+        <p>To reply you need to <%= link_to 'login', new_user_session_path %>. Don't have an account?
+            <%= link_to 'Sign up', new_user_registration_path %> for one.</p>
+        <% end %>
+
+    </div>
+
+    <% if @doubt.answer %>
+    <%= render @doubt.answer %>
+    <% elsif current_user && (current_user.assistant? || current_user.teacher?) %>
+    <%= render 'answers/form' %>
+    <% elsif %>
+    <%= render 'doubts/sidebar' %>
+    <% end %>
+
+    <% render 'sidebar' %>
+
+</div>
